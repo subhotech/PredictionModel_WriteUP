@@ -2,10 +2,7 @@
 title: "PredictionWriteup_smartDevices"
 author: "SS"
 date: "23/06/2021"
-output:
-  word_document: default
-  html_document: default
-  pdf_document: default
+
 ---
 
 ```{r setup, include=FALSE}
@@ -20,6 +17,7 @@ library(knitr)
 library(rpart)
 library(rpart.plot)
 library(randomForest)
+library(pdflatex)
 ```
 
 # <font size = "5"> Download the dataset using predefined urls </font>
@@ -32,7 +30,7 @@ testUrl <- "https://d396qusza40orc.cloudfront.net/predmachlearn/pml-testing.csv"
 ```
 
 # <font size = "5">  Load the dataset into variables </font>
-Post Cleaning of data variables i.e marking unusable fields as NA from #DIV/0!
+Post Cleaning of data variables i.e marking unusable fields as NA from #DIV/0!.
 
 ```
 training_Data <- read.csv(url(trainUrl), na.strings = c("NA", "#DIV/0!", ""))
@@ -41,7 +39,7 @@ testing_Data <- read.csv(url(testUrl), na.strings = c("NA", "#DIV/0!", ""))
 ```
 
 # <font size = "5">  Data Transformations i.e cleaning of data </font>
-Getting rid of unwanted data elements i.e NA
+Getting rid of columns having unwanted data elements i.e NA
 
 ```
 training_Data <- training_Data[, colSums(is.na(training_Data)) == 0]
@@ -150,12 +148,15 @@ Overall Statistics
 
 ```
 Final_Prediction <- predict(random_Forest_Model, testing_DataSet, type = "class")
-
-Final_Prediction
 ```
+
 
 # <font size = "5">Conclusion </font>
 
 Accuracy level of Random Forest Model is better than that of decision tree model as it is evident from the model statistics
 
+# <font size = "5"> Prediction Result for first 20 test cases </font>
 
+```
+head(Final_Prediction,30)
+```
